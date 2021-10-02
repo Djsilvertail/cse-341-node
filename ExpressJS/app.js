@@ -1,29 +1,21 @@
-//const http = require('http'); Not needed when using app.listen()
-
 const path = require('path');
 
 const express = require('express');
-
 const bodyParser = require('body-parser');
 
 const app = express();
 
 const adminRoutes = require('./routes/admin');
-
 const shopRoutes = require('./routes/shop');
 
 app.use(bodyParser.urlencoded({extended: false}));
-
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin', adminRoutes);
-
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
     res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
 });
 
-//const server = http.createServer(app);
-//server.listen(3000);
-app.listen(3000);// This works the same as the previous two lines.
+app.listen(3000);
